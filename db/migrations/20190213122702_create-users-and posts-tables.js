@@ -30,7 +30,7 @@ exports.up = async function up(knex) {
     table.bigInteger('post_author').notNullable().references('id').inTable('users');
     table.text('post_title').notNullable();
     table.text('post_content', ['longtext']);
-    table.string('post_excerpt').notNullable();
+    table.text('post_excerpt').notNullable();
     table.string('post_status', 20).notNullable();
     table
       .timestamp('created_at')
