@@ -5,22 +5,37 @@ const debug = require('debug')('makingsense:app');
 const figlet = require('figlet');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 const { PORT } = process.env;
 const app = express();
 const port = PORT || '3000';
-const Post = require('./service/posts');
-const postRouter = require('./routes/postRouter')(Post);
+
+// Routes
+const indexRouter = require('./routes/indexRouter')(app);
+const authRouter = require('./routes/authRouter')(app);
+const authorRouter = require('./routes/authorRouter')(app);
+const postRouter = require('./routes/postRouter')(app);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Passport middleware
+app.use(cookieParser());
+app.use(session({
+  secret: 'carpediem!',
+  resave: false,
+  saveUninitialized: true,
+}));
 
+require('./config/passport/passport')(app);
+
+
+app.use(process.env.API_VERSION, authRouter);
+app.use(process.env.API_VERSION, authorRouter);
 app.use(process.env.API_VERSION, postRouter);
-
-app.get('/', (req, res) => {
-  res.send('Making Sense API version 1.0.0. Status OK.');
-});
+app.use(indexRouter);
 
 app.set('port', port);
 app.listen(port, () => {

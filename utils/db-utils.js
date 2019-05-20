@@ -1,5 +1,5 @@
 /* eslint-disable */
-const debug = require('debug')('crowdout:utils:db-utils');
+const debug = require('debug')('makingsense:utils:db-utils');
 const chalk = require('chalk');
 
 /*

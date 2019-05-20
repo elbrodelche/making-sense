@@ -1,8 +1,8 @@
-const bcrypt = require('bcrypt');
+const { generatePassword } = require('../../utils/cryptography');
 
 exports.seed = async function seed(knex) {
   // For testing purposes all users have the same password
-  const hashedPass = await bcrypt.hash('secret', 5);
+  const hashedPass = await generatePassword('secret');
   // First User
   await knex('users').insert({
     name: 'Bruce Lee',

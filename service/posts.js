@@ -1,4 +1,4 @@
-const debug = require('debug')('app:service:user');
+const debug = require('debug')('makingsense:service:posts');
 const db = require('../db/index');
 const util = require('../utils/db-utils');
 
@@ -45,7 +45,9 @@ const getPosts = async (qf) => {
   const pgSize = Math.min(qf.pgSize, 10);
   const offset = (qf.pgNum - 1) * pgSize;
   const searchTxt = qf.search;
-  const { status } = qf;
+  const {
+    status, noDrafts, noPrivate, author, onlyDrafts,
+  } = qf;
 
   // Main query
   return db('posts')
@@ -73,7 +75,21 @@ const getPosts = async (qf) => {
       }
       // Post Status Filter
       if (status) {
-        query.or.where('post_status', status);
+        query.and.where('post_status', status);
+      }
+      // No Drafts
+      if (noDrafts) {
+        query.and.whereRaw('post_status != ? ', 'draft');
+      }
+      // No Private
+      if (noPrivate) {
+        query.and.whereRaw('post_status != ? ', 'private');
+      }
+      if (author) {
+        query.and.whereRaw('post_author = ? ', author);
+      }
+      if (onlyDrafts) {
+        query.and.whereRaw('post_status = ? ', 'draft');
       }
       return query;
     })
