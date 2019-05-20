@@ -15,6 +15,7 @@ const port = PORT || '3000';
 // Routes
 const indexRouter = require('./routes/indexRouter')(app);
 const authRouter = require('./routes/authRouter')(app);
+const authorRouter = require('./routes/authorRouter')(app);
 const postRouter = require('./routes/postRouter')(app);
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,6 +33,7 @@ require('./config/passport/passport')(app);
 
 
 app.use(process.env.API_VERSION, authRouter);
+app.use(process.env.API_VERSION, authorRouter);
 app.use(process.env.API_VERSION, postRouter);
 app.use(indexRouter);
 

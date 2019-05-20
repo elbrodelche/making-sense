@@ -6,7 +6,7 @@ const routes = (app) => {
 
   app.get('/', (req, res) => {
     debug('Index API');
-    res.send('Making Sense API version 1.0.0. Status OK.');
+    res.json('Making Sense API version 1.0.0. Status OK.');
   });
 
   return indexRouter;

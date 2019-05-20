@@ -1,3 +1,4 @@
+const debug = require('debug')('makingsense:config:passport:strategies:local.strategy');
 const passport = require('passport');
 const { Strategy } = require('passport-local');
 const User = require('../../../service/user');
@@ -13,7 +14,7 @@ module.exports = async function localStrategy() {
       // Search user
       const user = await User.getUserByEmail(email);
       if (comparePassword(password, user.password)) {
-        console.info('Password Match');
+        debug('Password Match');
         delete user.password;
         done(null, user);
       } else {
