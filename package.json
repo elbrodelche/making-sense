@@ -15,7 +15,12 @@
     "test": "mocha --timeout 10000 --reporter progress tests/**/*.spec.js",
     "test:watch": "npm run test -- --watch",
     "verbose": "DEBUG=* nodemon --signal SIGINT app",
-    "watch": "DEBUG=makingsense nodemon --signal SIGINT app.js"
+    "watch": "DEBUG=makingsense nodemon --signal SIGINT app.js",
+    "demo": "npm run db:reset && npm run db:migrate && npm run db:seed",
+    "db:migrate": "cd ./db && knex migrate:latest",
+    "db:reset": "cd ./db && knex migrate:rollback all",
+    "db:rollback": "cd ./db && knex migrate:rollback",
+    "db:seed": "cd ./db && knex seed:run"
   },
   "dependencies": {
     "bcrypt": "^3.0.4",
