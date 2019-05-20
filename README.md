@@ -12,7 +12,7 @@
 
 ##  Docker (database)
 1. Install **Docker** on your machine
-2. Run `docker-compose up -d` in a terminal on the project root. This will start 3 containers:
+2. Run `docker-compose up -d` in a terminal on the project root. This will start 1 container:
     - database(PostgreSQL) container;
 
 ## Start Demo
