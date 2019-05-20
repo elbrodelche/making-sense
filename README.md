@@ -61,6 +61,8 @@ user:chan@makingsense.com
 pass:secret
 ```
 
+You can filter any list of posts passing the search parameter to the URL ex: ``?search=someTerm``. It can be paginated defining the pgSize parameter as well.
+
 ## Docs (important)
 You can find a testing file for import on Insomnia or Postman in ``/docs``.
 ## Troubleshooting
