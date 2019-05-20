@@ -1,9 +1,17 @@
-const debug = require('debug')('app:postRouter');
+const debug = require('debug')('makingsense:routes:postRouter');
 const express = require('express');
+const Post = require('../service/posts');
 
-const routes = (Post) => {
+const routes = () => {
   const postRouter = express.Router();
 
+  postRouter.use((req, res, next) => {
+    if (req.user) {
+      next();
+    } else {
+      res.json('Unauthorized');
+    }
+  });
   postRouter.route('/posts').get(async (req, res) => {
     debug('List Posts');
 

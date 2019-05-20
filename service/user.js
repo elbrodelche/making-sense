@@ -1,20 +1,20 @@
-const debug = require('debug')('app:service:user');
+const debug = require('debug')('makingsense:service:user');
+const db = require('../db/index');
 
 /**
- * Logs user into the system
+ * Get user
+ *
  * */
-const loginUser = async (email) => {
-  debug(`loginUser: ${email}`);
-};
+const getUserByEmail = async (email) => {
+  debug(`getUserByEmail: ${email}`);
 
-/**
- * Logs user out the system
- * */
-const logoutUser = async (email) => {
-  debug(`logoutUser: ${email}`);
+  // Main query
+  return db('users').select()
+    .where('email', email)
+    .first()
+    .then();
 };
 
 module.exports = {
-  loginUser,
-  logoutUser,
+  getUserByEmail,
 };

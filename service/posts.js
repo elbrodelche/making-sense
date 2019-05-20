@@ -1,4 +1,4 @@
-const debug = require('debug')('app:service:user');
+const debug = require('debug')('makingsense:service:posts');
 const db = require('../db/index');
 const util = require('../utils/db-utils');
 
